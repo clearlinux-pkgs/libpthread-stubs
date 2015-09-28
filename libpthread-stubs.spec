@@ -4,7 +4,7 @@
 #
 Name     : libpthread-stubs
 Version  : 0.3
-Release  : 4
+Release  : 5
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/libpthread-stubs-0.3.tar.bz2
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/libpthread-stubs-0.3.tar.bz2
 Summary  : Stubs missing from libc for standard pthread functions
