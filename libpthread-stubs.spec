@@ -4,7 +4,7 @@
 #
 Name     : libpthread-stubs
 Version  : 0.4
-Release  : 11
+Release  : 12
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/libpthread-stubs-0.4.tar.bz2
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/libpthread-stubs-0.4.tar.bz2
 Summary  : Meta package for pthread symbols - defaults to heavyweight ones if the C runtime does not provide lightweight ones.
