@@ -4,10 +4,10 @@
 #
 Name     : libpthread-stubs
 Version  : 0.4
-Release  : 14
+Release  : 15
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/libpthread-stubs-0.4.tar.bz2
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/libpthread-stubs-0.4.tar.bz2
-Summary  : This library provides weak aliases for pthread functions not provided in libc or otherwise available by default.
+Summary  : Meta package for pthread symbols - defaults to heavyweight ones if the C runtime does not provide lightweight ones.
 Group    : Development/Tools
 License  : MIT-feh
 Requires: libpthread-stubs-license = %{version}-%{release}
@@ -62,8 +62,9 @@ popd
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557079363
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568865578
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -77,14 +78,14 @@ make  %{?_smp_mflags}
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
-export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32"
-export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32"
-export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 %configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -93,7 +94,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1557079363
+export SOURCE_DATE_EPOCH=1568865578
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libpthread-stubs
 cp COPYING %{buildroot}/usr/share/package-licenses/libpthread-stubs/COPYING
